@@ -172,9 +172,9 @@ export default function AnimatedProfileCard({
             <div 
               ref={achievementsRef}
               id="achievements"
-              className={`mt-16 w-full transition-all duration-1000 ${visibleSections.achievements ? 'animate-fade-in-up' : 'opacity-0'}`}
+              className="mt-16 w-full"
             >
-              <h2 className="text-2xl font-light text-white/80 mb-8 text-center tracking-wider" style={{ textShadow: '0 0 12px rgba(100, 200, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8)' }}>実績</h2>
+              <h2 className={`text-2xl font-light text-white/80 mb-8 text-center tracking-wider transition-all duration-700 ${visibleSections.achievements ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ textShadow: '0 0 12px rgba(100, 200, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8)' }}>実績</h2>
               <div className="space-y-6">
                 {achievements.map((achievement, index) => (
                   <div
