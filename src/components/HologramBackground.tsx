@@ -50,7 +50,6 @@ function Rings() {
 
 function Particles() {
   const ref = useRef<THREE.Points>(null)
-  const { mouse } = useThree()
 
   const [positions, colors] = useMemo(() => {
     const particleCount = 500
@@ -96,14 +95,6 @@ function Particles() {
 }
 
 function Scene() {
-  const { camera, mouse } = useThree()
-  
-  useFrame(() => {
-    camera.position.x = Math.sin(mouse.x * 0.5) * 10
-    camera.position.y = Math.sin(mouse.y * 0.5) * 5
-    camera.lookAt(0, 0, 0)
-  })
-
   return (
     <>
       <fog attach="fog" args={['#000000', 1, 1500]} />
