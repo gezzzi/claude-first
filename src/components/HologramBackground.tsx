@@ -83,7 +83,7 @@ function Particles() {
   return (
     <Points ref={ref} positions={positions} colors={colors}>
       <PointMaterial
-        size={0.3}
+        size={0.6}
         vertexColors
         transparent
         opacity={0.4}
