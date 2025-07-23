@@ -211,20 +211,20 @@ export default function AnimatedProfileCard({
             <div 
               ref={contactRef}
               id="contact"
-              className={`mt-16 w-full text-center transition-all duration-1000 ${visibleSections.contact ? 'animate-fade-in-up' : 'opacity-0'}`}
+              className="mt-16 w-full text-center"
             >
-              <h2 className="text-2xl font-light text-white/80 mb-6 tracking-wider" style={{ textShadow: '0 0 12px rgba(100, 200, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8)' }}>お仕事のご依頼</h2>
-              <p className="text-white/70 mb-6" style={{ textShadow: '0 0 8px rgba(100, 200, 255, 0.3), 0 2px 3px rgba(0, 0, 0, 0.8)' }}>
+              <h2 className={`text-2xl font-light text-white/80 mb-6 tracking-wider transition-all duration-700 ${visibleSections.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ textShadow: '0 0 12px rgba(100, 200, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8)' }}>お仕事のご依頼</h2>
+              <p className={`text-white/70 mb-6 transition-all duration-700 delay-200 ${visibleSections.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ textShadow: '0 0 8px rgba(100, 200, 255, 0.3), 0 2px 3px rgba(0, 0, 0, 0.8)' }}>
                 プロジェクトのご相談・ご依頼は下記よりお気軽にお問い合わせください
               </p>
               <a
                 href={`mailto:${contactEmail}`}
-                className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:from-cyan-400 hover:to-blue-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-400/30 hover:scale-105 ${
-                  visibleSections.contact ? 'animate-bounce-in' : 'opacity-0'
+                className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full hover:from-cyan-400 hover:to-blue-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-400/30 hover:scale-105 transition-all duration-700 ${
+                  visibleSections.contact ? 'animate-bounce-in opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 style={{
                   animationDelay: '0.5s',
-                  animationFillMode: 'forwards'
+                  animationFillMode: 'both'
                 }}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
