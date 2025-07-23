@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Points, PointMaterial } from '@react-three/drei'
 import * as THREE from 'three'
@@ -105,11 +105,65 @@ function Scene() {
 }
 
 export default function HologramBackground() {
+  const [stableSize, setStableSize] = useState({ width: 0, height: 0 })
+  
+  useEffect(() => {
+    // 初回のサイズを記録し、一定時間内の変更は無視する
+    const setInitialSize = () => {
+      setStableSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
+    }
+    
+    // 初回サイズ設定
+    setInitialSize()
+    
+    let resizeTimer: NodeJS.Timeout
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      // 大きなサイズ変更（画面回転など）の場合のみ更新
+      resizeTimer = setTimeout(() => {
+        const widthDiff = Math.abs(window.innerWidth - stableSize.width)
+        const heightDiff = Math.abs(window.innerHeight - stableSize.height)
+        
+        // 幅の変更が大きい場合、または高さの変更が20%以上の場合のみ更新
+        if (widthDiff > 100 || heightDiff > stableSize.height * 0.2) {
+          setStableSize({
+            width: window.innerWidth,
+            height: window.innerHeight
+          })
+        }
+      }, 300)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimer)
+    }
+  }, [stableSize.width, stableSize.height])
+  
+  if (stableSize.width === 0 || stableSize.height === 0) {
+    return null
+  }
+  
   return (
     <div className="fixed inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 50], fov: 75 }}>
-        <Scene />
-      </Canvas>
+      <div 
+        style={{ 
+          width: `${stableSize.width}px`, 
+          height: `${stableSize.height}px`,
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
+        <Canvas camera={{ position: [0, 0, 50], fov: 75 }}>
+          <Scene />
+        </Canvas>
+      </div>
       <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/60 pointer-events-none" />
     </div>
   )
